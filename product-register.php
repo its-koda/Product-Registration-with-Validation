@@ -8,6 +8,7 @@
 </head>
 
 <body>
+    <!-- Formulário estruturado para envio via POST contendo os campos de nome e preço -->
     <form action="" method="post">
         <h2>Cadastro de Produtos</h2>
 
@@ -19,25 +20,25 @@
 
         <button type="submit">Cadastrar</button>
     </form>
-
+    
     <?php
-    // Verifica se o formulário foi enviado
+    // Verifica se a requisição atual veio do envio do formulário (método POST)
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-        // Recebe os valores enviados pelo formulário
+        // Captura os dados enviados e limpa espaços extras no nome
         $nome = trim($_POST['nome'] ?? '');
         $preco = $_POST['preco'] ?? '';
 
-        // Validações antes da conexão/inserção
+        // Validação de campos vazios, tipos de dados e valores negativos
         if (empty($nome) || $preco === '') {
-            // Espaços vazios
+            // Retorna erro caso algum campo esteja em branco
             echo "<p id='msg' style='color: red;'>Erro: Todos os espaços devem ser preenchidos</p>";
 
         } else if (!is_numeric($preco)) {
-            //  O valor do preço não é numérico
+            // Valida se o valor inserido no preço é de fato um número
             echo "<p id='msg' style='color: red;'>Erro: O valor do Preço deve ser numérico</p>";
 
         } else if ($preco <= 0) {
-            // O valor do preço é negativo ou zero
+            // Impede preços zerados ou negativos
             echo "<p id='msg' style='color: red;'>Erro: O preço deve ser um número positivo</p>";
 
         } else {
